@@ -23,6 +23,4 @@ class TestReader:
                 if not(re.match("    .*", line) or re.match("\t.*", line) or (line == "") or (line == "\n")):
                     self.tests.append(line.strip())
 
-                    
-
 
