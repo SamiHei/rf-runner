@@ -9,20 +9,18 @@ def main():
     test_file = "example.robot"
     t.read_tests(test_file)
 
-    command_string = "robot -d results"
+    # command_string = "robot -d results"
 
-    i = 0
-    for test in t.tests:
-        if (i%2 != 0):
-            command_string += " -t " + "\"" + test + "\""
-        i += 1
+    # i = 0
+    # for test in t.tests:
+    #     if (i%2 != 0):
+    #         command_string += " -t " + "\"" + test + "\""
+    #     i += 1
 
-    command_string += " " + test_file
-
-    os.system(command_string)
+    # command_string += " " + test_file
 
     g = Gui(100, 500)
-    g.create_gui()
+    g.create_gui(t.tests, test_file)
     g.start_gui()
 
 
