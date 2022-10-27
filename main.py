@@ -5,9 +5,9 @@ from src.gui.gui import Gui
 import os
 
 def main():
-    t = TestReader()
-    test_file = "example.robot"
-    t.read_tests(test_file)
+    #t = TestReader()
+    #test_file = "example.robot"
+    #t.read_tests(test_file)
 
     # command_string = "robot -d results"
 
@@ -19,8 +19,8 @@ def main():
 
     # command_string += " " + test_file
 
-    g = Gui(100, 500)
-    g.create_gui(t.tests, test_file)
+    g = Gui()
+    g.create_gui()
     g.start_gui()
 
 

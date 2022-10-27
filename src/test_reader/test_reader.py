@@ -3,7 +3,7 @@ import re
 class TestReader:
 
     def __init__(self):
-        self.tests = []
+        pass
 
 
     def read_tests(self, file):
@@ -11,6 +11,8 @@ class TestReader:
         Goes through the test case file and collects all the test case names
         under *** Test Cases ***
         """
+        tests = []
+        
         with open(file, "r") as f:
             # Set pointer to start of *** Test Cases *** block
             for line in f:
@@ -21,6 +23,8 @@ class TestReader:
             for line in f:
                 
                 if not(re.match("    .*", line) or re.match("\t.*", line) or (line == "") or (line == "\n")):
-                    self.tests.append(line.strip())
+                    tests.append(line.strip())
+
+        return tests
 
 

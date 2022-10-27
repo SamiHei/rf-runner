@@ -1,34 +1,41 @@
-from tkinter import *
+import tkinter as tk
 from tkinter import filedialog
 from tkinter import ttk
 import os
+from src.test_reader.test_reader import TestReader
 
-class Gui:
+class Gui(tk.Tk):
 
-    def __init__(self, x, y):
-        self.root = None
+    def __init__(self):
+        super().__init__()
+        self.tr = TestReader()
+        self.selected_file = None
 
 
-    def create_gui(self, test_cases, test_file):
-        self.root = Tk()
-        self.root.geometry("400x700")
-        self.root.title("RF Runner")
+    def create_gui(self):
+        self.geometry("400x700")
+        self.title("RF Runner")
 
-        list_box = Listbox(self.root, selectmode="multiple")
+        list_box = tk.Listbox(self, selectmode="multiple")
 
-        for case in test_cases:
-            list_box.insert(END, case)
+        list_box.grid(row=1)
 
-        list_box.grid()
-
-        button1 = ttk.Button(self.root, text="Quit", command=self.root.destroy).grid()
-        button2 = ttk.Button(self.root, text="Run", command=lambda : self.run_tests(list_box, test_file)).grid()
-        button3 = ttk.Button(self.root, text="File", command=lambda : self.select_file()).grid()
+        button1 = ttk.Button(self, text="Quit", padding="10 10 10 10", command=self.destroy).grid(column=0, row=0)
+        button2 = ttk.Button(self, text="Run", padding="10 10 10 10", command=lambda : self.run_tests(list_box, self.selected_file)).grid(column=1, row=0)
+        button3 = ttk.Button(self, text="File", padding="10 10 10 10", command=lambda : self.write_list_box_content(list_box)).grid(column=2, row=0)
 
 
     def start_gui(self):
-        self.root.mainloop()
+        self.mainloop()
 
+
+    def write_list_box_content(self, list_box):
+
+        test_cases = self.select_file()
+        
+        for case in test_cases:
+            list_box.insert(tk.END, case)
+        
 
     def run_tests(self, list_box, test_file):
         selections = list_box.curselection()
@@ -53,5 +60,7 @@ class Gui:
 
         file_path = filedialog.askopenfilename()
 
-        print(file_path)
+        self.selected_file = file_path
+
+        return self.tr.read_tests(file_path)
 
