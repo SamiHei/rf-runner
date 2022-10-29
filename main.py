@@ -8,8 +8,9 @@ import os
 def main():
     g = Gui()
     g.create_gui()
-    g.start_gui()
+    g.start_application()
 
 
 if __name__ == '__main__':
     main()
+

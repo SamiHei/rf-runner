@@ -29,3 +29,17 @@ class TestReader:
         return tests
 
 
+    def create_robot_command(self, cases, test_file):
+        """
+        Wraps a robot call with test cases given to a one string
+        """
+        command = "robot -d results"
+
+        for test in cases:
+            command += " -t " + "\"" + test + "\""
+
+        command += " " + test_file
+
+        return command
+
+
