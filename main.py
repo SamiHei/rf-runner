@@ -5,12 +5,8 @@ from src.gui.gui import Gui
 import os
 
 
-def main():
+if __name__ == '__main__':
     g = Gui()
     g.create_gui()
     g.start_application()
-
-
-if __name__ == '__main__':
-    main()
 

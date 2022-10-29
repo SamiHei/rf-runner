@@ -67,5 +67,6 @@ class Gui(tk.Tk):
             os.system(command)
         except TypeError:
             print("File not selected!")
-            time.sleep(3)
+            time.sleep(2)
             os.system('cls' if os.name == 'nt' else 'clear')
+
