@@ -2,18 +2,19 @@ import re
 
 class TestReader:
 
+
     def __init__(self):
         pass
 
 
-    def read_tests(self, file):
+    def read_tests(self, file_path):
         """
         Goes through the test case file and collects all the test case names
         under *** Test Cases ***
         """
         tests = []
         
-        with open(file, "r") as f:
+        with open(file_path, "r") as f:
             # Set pointer to start of *** Test Cases *** block
             for line in f:
                 if (line.strip() == "*** Test Cases ***"):

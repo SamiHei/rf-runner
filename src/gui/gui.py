@@ -4,6 +4,7 @@ from tkinter import ttk
 import os
 from src.test_reader.test_reader import TestReader
 
+
 class Gui(tk.Tk):
 
     def __init__(self):
@@ -31,11 +32,13 @@ class Gui(tk.Tk):
 
     def write_list_box_content(self, list_box):
 
-        test_cases = self.select_file()
-        
+        self.selected_file = filedialog.askopenfilename()
+
+        test_cases = self.tr.read_tests(self.selected_file)
+
         for case in test_cases:
             list_box.insert(tk.END, case)
-        
+
 
     def run_tests(self, list_box, test_file):
         selections = list_box.curselection()
@@ -54,13 +57,4 @@ class Gui(tk.Tk):
         print(command_string)
 
         os.system(command_string)
-
-
-    def select_file(self):
-
-        file_path = filedialog.askopenfilename()
-
-        self.selected_file = file_path
-
-        return self.tr.read_tests(file_path)
 
