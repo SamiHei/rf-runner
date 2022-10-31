@@ -29,11 +29,18 @@ class TestReader:
         return tests
 
 
-    def create_robot_command(self, cases, test_file):
+    def create_robot_command(self, cases, test_file, target_folder, rand):
         """
         Wraps a robot call with test cases given to a one string
         """
-        command = "robot -d results"
+        print(rand)
+        command = "robot "
+
+
+        if (rand == 1):
+            command += "--randomize all "
+
+        command += "-d results/" + target_folder
 
         for test in cases:
             command += " -t " + "\"" + test + "\""
