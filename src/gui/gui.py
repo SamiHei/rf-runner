@@ -43,8 +43,14 @@ class Gui(tk.Tk):
         fourth_frame.grid(row=3, column=0)
 
         # First frame block
+        lb_sb = ttk.Scrollbar(first_frame,orient="vertical")
+        lb_sb.grid(column=1, row=0, sticky='ns')
+
         list_box = tk.Listbox(first_frame, width=65, height=30, selectmode="multiple")
-        list_box.grid(column=0, row=0, padx=35, pady=5)
+        list_box.grid(column=0, row=0, padx=(35,0), pady=5)
+        list_box.config(yscrollcommand= lb_sb.set)
+
+        lb_sb.config(command = list_box.yview)
 
         # Second frame button row
         ttk.Button(second_frame,
