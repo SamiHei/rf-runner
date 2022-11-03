@@ -48,7 +48,7 @@ class Gui(tk.Tk):
 
         list_box = tk.Listbox(first_frame, width=65, height=30, selectmode="multiple")
         list_box.grid(column=0, row=0, padx=(35,0), pady=5)
-        list_box.config(yscrollcommand= lb_sb.set)
+        list_box.config(yscrollcommand= lb_sb.set, exportselection=False)
 
         lb_sb.config(command = list_box.yview)
 
@@ -97,16 +97,14 @@ class Gui(tk.Tk):
         Writes test cases that are read from selected file
         to given list box element
         """
-        try:
-            self.selected_file = filedialog.askopenfilename()
+        self.selected_file = filedialog.askopenfilename()
+
+        if (self.selected_file):
 
             test_cases = self.tr.read_tests(self.selected_file)
 
             for case in test_cases:
                 list_box.insert(tk.END, case)
-        except TypeError:
-            # Handler if you close the filedialog without selecting file
-            pass
 
 
     def run_tests(self, list_box, test_file, target_folder, rand):
@@ -114,22 +112,19 @@ class Gui(tk.Tk):
         Get selected cases from list box and create a robot command
         that is called via os.system call
         """
-        try:
-            selections = list_box.curselection()
-            cases = []
+        selections = list_box.curselection()
+        cases = []
 
-            for s in selections:
-                cases.append(list_box.get(s))
+        for s in selections:
+            cases.append(list_box.get(s))
 
-            if (cases == []):
-                print("Select cases to run")
-            else:
-                command = self.tr.create_robot_command(cases, test_file, target_folder, rand)
+        if (not test_file):
+            print("Test file is not selected!")
+        elif (not cases):
+            print("Test cases are not selected!")
+        else:
+            command = self.tr.create_robot_command(cases, test_file, target_folder, rand)
 
-                print(command)
-                os.system(command)
-        except TypeError:
-            print("File not selected!")
-            time.sleep(2)
-            os.system('cls' if os.name == 'nt' else 'clear')
+            print(command)
+            os.system(command)
 

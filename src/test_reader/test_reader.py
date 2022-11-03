@@ -33,9 +33,7 @@ class TestReader:
         """
         Wraps a robot call with test cases given to a one string
         """
-        print(rand)
         command = "robot "
-
 
         if (rand == 1):
             command += "--randomize all "
