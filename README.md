@@ -1,7 +1,9 @@
 # rf-runner
 Graphical Robot Framework Test Runner
 
-## Concept GIF
+!!! Work in progress !!!
+
+## Example usage
 ![](https://github.com/SamiHei/rf-runner/blob/master/sample/rf-runner.gif)
 
 ## Notes
