@@ -1,0 +1,24 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="SamiHei">
+  <title>Reports Viewer</title>
+</head>
+<body>
+  <div style="background: #232323;">
+    <h1 style="margin: 0; padding: 15px; color: white;">Testing Report Viewer</h1>
+    <select name="reports" onchange="document.getElementById('reports-iframe').src = this.options[this.selectedIndex].value" id="reports-dropdown">
+      {% for op in options %}
+        <option value={{op.path}}>{{op.folder}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div>
+    <iframe name="iframe" id="reports-iframe" src="" style="height:100vw; width:100vw;"</iframe>
+  </div>
+</body>
+</html>
+
