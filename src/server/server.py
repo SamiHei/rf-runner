@@ -2,9 +2,10 @@ from flask import Flask, render_template
 import os
 
 
-app = Flask(__name__)
+reports_folder = 'test_results'
 
-BASE_REPORTS_PATH = ""
+app = Flask(__name__,
+            static_folder=reports_folder)
 
 
 def main():
@@ -24,15 +25,20 @@ def get_reports_folder_path():
     """
 
     reports_path_dict = []
+    base_reports_path = os.getcwd() + f'/{reports_folder}'
 
-    for folder in os.listdir(BASE_REPORTS_PATH):
-        path = BASE_REPORTS_PATH + "/" + folder + "/log.html"
-        option_dict = { "path": path,
-                        "folder": folder
-                      }
-        reports_path_dict.append(option_dict)
+    try:
+        for folder in os.listdir(base_reports_path):
+            path = f'/{reports_folder}' + "/" + folder + "/log.html"
+            option_dict = { "path": path,
+                            "folder": folder
+            }
+            reports_path_dict.append(option_dict)
 
-    return reports_path_dict
+        return reports_path_dict
+    except FileNotFoundError:
+        # If no test has been run yet so reports_folder does not exists
+        return []
 
 
 if __name__=='__main__':

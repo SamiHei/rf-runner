@@ -34,11 +34,12 @@ class TestReader:
         Wraps a robot call with test cases given to a one string
         """
         command = "robot "
+        results_folder_path = "src/server/test_results/"
 
         if (rand == 1):
             command += "--randomize all "
 
-        command += "-d results/" + target_folder
+        command += "-d " + results_folder_path + target_folder
 
         for test in cases:
             command += " -t " + "\"" + test + "\""
