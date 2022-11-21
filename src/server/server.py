@@ -1,31 +1,39 @@
 from flask import Flask, render_template
 import os
+import threading
+import logging
 
 
 reports_folder = 'test_results'
+
 
 app = Flask(__name__,
             static_folder=reports_folder)
 
 
-def main():
-    app.run()
+def start_server():
+    log = logging.getLogger('werkzeug')
+    log.setLevel(logging.ERROR)
+    thread = threading.Thread(target=app.run)
+    thread.daemon = True
+    thread.start()
+    print("Server started at: http://127.0.0.1:5000")
 
 
 @app.route('/')
 def index():
-    reports_options = get_reports_folder_path()
+    reports_options = __get_reports_folder_path()
     return render_template('index.html', options=reports_options)
 
 
-def get_reports_folder_path():
+def __get_reports_folder_path():
     """
     Create dictionary with absolute path for each reports file
     and reports folder name to be shown in the dropdown menu
     """
 
     reports_path_dict = []
-    base_reports_path = os.getcwd() + f'/{reports_folder}'
+    base_reports_path = os.getcwd() + f'/src/server/{reports_folder}'
 
     try:
         for folder in os.listdir(base_reports_path):

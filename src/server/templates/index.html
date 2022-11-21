@@ -16,8 +16,8 @@
       {% endfor %}
     </select>
   </div>
-  <div>
-    <iframe name="iframe" id="reports-iframe" src="" style="height:100vw; width:100vw;"</iframe>
+  <div id="iframe">
+    <iframe name="iframe" id="reports-iframe" src={% set last = options|last %}{{last.path}} style="height:100vw; width:100vw;"</iframe>
   </div>
 </body>
 </html>

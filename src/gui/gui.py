@@ -5,6 +5,7 @@ import os
 import time
 
 from src.test_reader.test_reader import TestReader
+from src.server.server import start_server
 
 
 class Gui(tk.Tk):
@@ -86,10 +87,16 @@ class Gui(tk.Tk):
 
         # Fourth frame block
         ttk.Button(fourth_frame,
+                   text="Reports",
+                   padding=self.button_padding,
+                   command=lambda : start_server()
+        ).grid(column=0, row=0, padx=(0,50), pady=(50,0))
+
+        ttk.Button(fourth_frame,
                    text="Quit",
                    padding=self.button_padding,
                    command=self.destroy
-        ).grid(column=0, row=0, padx=(215,0), pady=(50,0))
+        ).grid(column=1, row=0, padx=(80,0), pady=(50,0))
 
 
     def write_tests_to_lb(self, list_box):

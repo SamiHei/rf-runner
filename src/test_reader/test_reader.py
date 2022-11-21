@@ -4,7 +4,7 @@ class TestReader:
 
 
     def __init__(self):
-        pass
+        self.reports_folder = "test_results"
 
 
     def read_tests(self, file_path):
@@ -34,7 +34,7 @@ class TestReader:
         Wraps a robot call with test cases given to a one string
         """
         command = "robot "
-        results_folder_path = "src/server/test_results/"
+        results_folder_path = f"src/server/{self.reports_folder}/"
 
         if (rand == 1):
             command += "--randomize all "
