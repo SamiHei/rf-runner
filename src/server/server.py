@@ -3,21 +3,24 @@ import os
 import threading
 import logging
 
+from src.configs.configs import ConfigsHandler
 
-reports_folder = 'test_results'
 
+ch = ConfigsHandler()
 
+# For some reason static_folder must be set here and can't be set
+# before starting the app so need to init ConfigHandler here and fetch config
 app = Flask(__name__,
-            static_folder=reports_folder)
+            static_folder=ch['reports']['REPORTS_FOLDER'])
 
 
-def start_server():
+def start_server(host, port):
     log = logging.getLogger('werkzeug')
     log.setLevel(logging.ERROR)
-    thread = threading.Thread(target=app.run)
+    thread = threading.Thread(target=lambda : app.run(host=host, port=port))
     thread.daemon = True
     thread.start()
-    print("Server started at: http://127.0.0.1:5000")
+    print(f'Server started at: http://{host}:{port}')
 
 
 @app.route('/')
@@ -47,8 +50,4 @@ def __get_reports_folder_path():
     except FileNotFoundError:
         # If no test has been run yet so reports_folder does not exists
         return []
-
-
-if __name__=='__main__':
-    main()
 

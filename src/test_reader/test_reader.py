@@ -3,8 +3,8 @@ import re
 class TestReader:
 
 
-    def __init__(self):
-        self.reports_folder = "test_results"
+    def __init__(self, reports_folder):
+        self.reports_folder = reports_folder
 
 
     def read_tests(self, file_path):

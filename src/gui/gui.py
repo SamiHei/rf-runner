@@ -6,6 +6,7 @@ import time
 
 from src.test_reader.test_reader import TestReader
 from src.server.server import start_server
+from src.configs.configs import ConfigsHandler
 
 
 class Gui(tk.Tk):
@@ -13,11 +14,12 @@ class Gui(tk.Tk):
 
     def __init__(self):
         super().__init__()
-        self.tr = TestReader()
         self.selected_file = None
         self.application_title = "RF Runner"
         self.button_padding = "5 5 5 5"
         self.window_size = "600x800"
+        self.ch = ConfigsHandler()
+        self.tr = TestReader(self.ch['reports']['REPORTS_FOLDER'])
 
 
     def start_application(self):
@@ -89,7 +91,7 @@ class Gui(tk.Tk):
         ttk.Button(fourth_frame,
                    text="Reports",
                    padding=self.button_padding,
-                   command=lambda : start_server()
+                   command=lambda : start_server(self.ch['server']['HOST'], self.ch['server']['PORT'])
         ).grid(column=0, row=0, padx=(0,50), pady=(50,0))
 
         ttk.Button(fourth_frame,
