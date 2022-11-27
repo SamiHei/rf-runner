@@ -113,11 +113,19 @@ class Gui(tk.Tk):
         Params:
          list_box : tk.Listbox Element to write test cases from selected file
         """
+        temp_file_mem = self.selected_file
         self.selected_file = filedialog.askopenfilename()
+
+        if (self.selected_file == "" and temp_file_mem != ""):
+            self.selected_file = temp_file_mem
+            return
 
         if (self.selected_file):
 
             test_cases = self.tr.read_tests(self.selected_file)
+
+            # Clear list_box before writing new content
+            list_box.delete(0,tk.END)
 
             for case in test_cases:
                 list_box.insert(tk.END, case)
