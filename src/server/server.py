@@ -7,11 +7,12 @@ from src.configs.configs import ConfigsHandler
 
 
 ch = ConfigsHandler()
+reports_folder = ch['reports']['REPORTS_FOLDER']
 
 # For some reason static_folder must be set here and can't be set
 # before starting the app so need to init ConfigHandler here and fetch config
 app = Flask(__name__,
-            static_folder=ch['reports']['REPORTS_FOLDER'])
+            static_folder=reports_folder)
 
 
 def start_server(host, port):
