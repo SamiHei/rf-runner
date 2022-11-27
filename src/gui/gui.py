@@ -27,6 +27,10 @@ class Gui(tk.Tk):
 
 
     def create_gui(self):
+        """
+        Creates all the frames and buttons to the GUI.
+        Sets function calls for the buttons
+        """
         self.geometry(self.window_size)
         self.minsize(600, 800)
         self.maxsize(600, 800)
@@ -59,7 +63,7 @@ class Gui(tk.Tk):
         ttk.Button(second_frame,
                    text="File",
                    padding=self.button_padding,
-                   command=lambda : self.write_tests_to_lb(list_box)
+                   command=lambda : self.__write_tests_to_lb(list_box)
         ).grid(column=0, row=0, padx=5)
 
         ttk.Button(second_frame,
@@ -84,7 +88,7 @@ class Gui(tk.Tk):
         ttk.Button(third_frame,
                    text="Run",
                    padding=self.button_padding,
-                   command=lambda : self.run_tests(list_box, self.selected_file, target_folder_text.get(), rand.get())
+                   command=lambda : self.__run_tests(list_box, self.selected_file, target_folder_text.get(), rand.get())
         ).grid(column=1, row=1, padx=25)
 
         # Fourth frame block
@@ -101,10 +105,13 @@ class Gui(tk.Tk):
         ).grid(column=1, row=0, padx=(80,0), pady=(50,0))
 
 
-    def write_tests_to_lb(self, list_box):
+    def __write_tests_to_lb(self, list_box):
         """
         Writes test cases that are read from selected file
         to given list box element
+
+        Params:
+         list_box : tk.Listbox Element to write test cases from selected file
         """
         self.selected_file = filedialog.askopenfilename()
 
@@ -116,10 +123,16 @@ class Gui(tk.Tk):
                 list_box.insert(tk.END, case)
 
 
-    def run_tests(self, list_box, test_file, target_folder, rand):
+    def __run_tests(self, list_box, test_file, target_folder, rand):
         """
         Get selected cases from list box and create a robot command
         that is called via os.system call
+
+        Params:
+         list_box      : tk.Listbox  Element to write test cases from selected file
+         test_file     : string      Selected test file to be pointed on robot command
+         target_folder : string      Folder name where results will be saved
+         rand          : bool        Value to set if robot test cases will be ran in random order or not
         """
         selections = list_box.curselection()
         cases = []

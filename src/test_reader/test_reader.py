@@ -11,6 +11,9 @@ class TestReader:
         """
         Goes through the test case file and collects all the test case names
         under *** Test Cases ***
+
+        Params:
+         file_path : string Full path to selected .robot test file
         """
         tests = []
         
@@ -32,6 +35,12 @@ class TestReader:
     def create_robot_command(self, cases, test_file, target_folder, rand):
         """
         Wraps a robot call with test cases given to a one string
+
+        Params:
+         cases         : string[] List of test case names strings
+         test_file     : string   Selected test file to be pointed on robot command
+         target_folder : string   Folder name where results will be saved
+         rand          : bool     Value to set if robot test cases will be ran in random order or not
         """
         command = "robot "
         results_folder_path = f"src/server/{self.reports_folder}/"

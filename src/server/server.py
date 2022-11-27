@@ -16,6 +16,13 @@ app = Flask(__name__,
 
 
 def start_server(host, port):
+    """
+    Creates Flask web server on a thread and sets logging to level ERROR
+
+    Params:
+     host : string Host IP from config.ini fil
+     port : string Port number from config.ini file
+    """
     log = logging.getLogger('werkzeug')
     log.setLevel(logging.ERROR)
     thread = threading.Thread(target=lambda : app.run(host=host, port=port))
@@ -35,7 +42,6 @@ def __get_reports_folder_path():
     Create dictionary with absolute path for each reports file
     and reports folder name to be shown in the dropdown menu
     """
-
     reports_path_dict = []
     base_reports_path = os.getcwd() + f'/src/server/{reports_folder}'
 
