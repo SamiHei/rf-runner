@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, filedialog
-import os
+import os, platform
 import time
 
 from src.test_reader.test_reader import TestReader
@@ -30,6 +30,25 @@ class Gui(tk.Tk):
         Creates all the frames and buttons to the GUI.
         Sets function calls for the buttons
         """
+        if (platform.system() == 'Windows'):
+            lb_padx = (100, 0)
+            files_btn_padx = (80, 10)
+            select_all_btn_padx = (15, 10)
+            clear_selection_btn_padx = (15, 10)
+            reports_targ_fold_padx = (60, 40)
+            run_btn_padx = (55, 0)
+            reports_btn_padx = (70,50)
+            quit_btn_padx = (90,0)
+        else:
+            lb_padx = (35, 0)
+            files_btn_padx = 5
+            select_all_btn_padx = 5
+            clear_selection_btn_padx = 5
+            reports_targ_fold_padx = (0, 27.5)
+            run_btn_padx = 25
+            reports_btn_padx = (50,50)
+            quit_btn_padx = (50,0)
+
         self.geometry(self.window_size)
         self.minsize(600, 800)
         self.maxsize(600, 800)
@@ -50,11 +69,11 @@ class Gui(tk.Tk):
 
         # First frame block
         lb_sb = ttk.Scrollbar(first_frame,orient="vertical")
-        lb_sb.grid(column=1, row=0, sticky='ns')
+        lb_sb.grid(column=1, row=0)
 
         list_box = tk.Listbox(first_frame, width=65, height=30, selectmode="multiple")
-        list_box.grid(column=0, row=0, padx=(35,0), pady=5)
-        list_box.config(yscrollcommand= lb_sb.set, exportselection=False)
+        list_box.grid(column=0, row=0, padx=lb_padx, pady=5)
+        list_box.config(yscrollcommand= lb_sb.set, exportselection=False, bd=4)
 
         lb_sb.config(command = list_box.yview)
 
@@ -63,45 +82,45 @@ class Gui(tk.Tk):
                    text="File",
                    padding=self.button_padding,
                    command=lambda : self.__write_tests_to_lb(list_box)
-        ).grid(column=0, row=0, padx=5)
+        ).grid(column=0, row=0, padx=files_btn_padx)
 
         ttk.Button(second_frame,
                    text="Select All",
                    padding=self.button_padding,
                    command=lambda : list_box.select_set(0, tk.END)
-        ).grid(column=1, row=0, padx=5)
+        ).grid(column=1, row=0, padx=select_all_btn_padx)
 
         ttk.Button(second_frame,
                    text="Clear Selection",
                    padding=self.button_padding,
                    command=lambda : list_box.selection_clear(0, tk.END)
-        ).grid(column=2, row=0, padx=5)
+        ).grid(column=2, row=0, padx=clear_selection_btn_padx)
 
         # Third frame block
-        tk.Label(third_frame,text="Report target folder").grid(column=0, row=0, padx=(0, 27.5), pady=(15, 0))
+        tk.Label(third_frame,text="Report target folder").grid(column=0, row=0, padx=reports_targ_fold_padx, pady=(40, 0))
         target_folder_text = tk.StringVar()
-        target_folder_entry = ttk.Entry(third_frame, textvariable=target_folder_text).grid(column=0, row=1, padx=25)
+        target_folder_entry = ttk.Entry(third_frame, textvariable=target_folder_text).grid(column=0, row=1, padx=reports_targ_fold_padx)
 
         rand = tk.IntVar()
-        tk.Checkbutton(third_frame, text="Randomize test order", variable=rand).grid(column=0, row=2, padx=(0, 15))
+        tk.Checkbutton(third_frame, text="Randomize test order", variable=rand).grid(column=0, row=2, padx=reports_targ_fold_padx)
         ttk.Button(third_frame,
                    text="Run",
                    padding=self.button_padding,
                    command=lambda : self.__run_tests(list_box, self.selected_file, target_folder_text.get(), rand.get())
-        ).grid(column=1, row=1, padx=25)
+        ).grid(column=1, row=1, padx=run_btn_padx)
 
         # Fourth frame block
         ttk.Button(fourth_frame,
                    text="Reports",
                    padding=self.button_padding,
                    command=lambda : start_server(self.ch['server']['HOST'], self.ch['server']['PORT'])
-        ).grid(column=0, row=0, padx=(0,50), pady=(50,0))
+        ).grid(column=0, row=0, padx=reports_btn_padx, pady=(40,0))
 
         ttk.Button(fourth_frame,
                    text="Quit",
                    padding=self.button_padding,
                    command=self.destroy
-        ).grid(column=1, row=0, padx=(80,0), pady=(50,0))
+        ).grid(column=1, row=0, padx=quit_btn_padx, pady=(40,0))
 
 
     def __write_tests_to_lb(self, list_box):
