@@ -14,7 +14,8 @@ To use this tool, you should bring your test automation project folder inside of
 Developed and tested on Ubuntu 20.04.5 LTS
 
 Tested and verified:
-    - Windows 10
+
+*Windows 10
 
 macOS is not tested.
 
