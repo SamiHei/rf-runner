@@ -5,11 +5,16 @@ Reports creates a simple flask web server that collects all the Robot Framework 
 
 This application uses Flask to creates a simple web server and it should not be used on a production environment as it is!
 
+To use this tool, you should bring your test automation project folder inside of this project root folder.
+
 ## Example usage
 ![](https://github.com/SamiHei/rf-runner/blob/master/sample/rf-runner.gif)
 
 ## Notes
 Developed and tested on Ubuntu 20.04.5 LTS
 
-Not tested on a Windows!
+Tested and verified:
+    - Windows 10
+
+macOS is not tested.
 

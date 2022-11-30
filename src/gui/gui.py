@@ -44,10 +44,10 @@ class Gui(tk.Tk):
             files_btn_padx = 5
             select_all_btn_padx = 5
             clear_selection_btn_padx = 5
-            reports_targ_fold_padx = (0, 27.5)
+            reports_targ_fold_padx = (15, 27.5)
             run_btn_padx = 25
-            reports_btn_padx = (50,50)
-            quit_btn_padx = (50,0)
+            reports_btn_padx = (0, 50)
+            quit_btn_padx = (70,0)
 
         self.geometry(self.window_size)
         self.minsize(600, 800)
